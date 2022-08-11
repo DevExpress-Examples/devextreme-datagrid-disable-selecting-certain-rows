@@ -5,7 +5,7 @@
 <!-- default badges end -->
 # DataGrid for DevExtreme - How to disable selecting certain rows
 
-This example demonstrates how to disable selection in certain rows in the [multiple record selection mode](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/MultipleRecordSelectionModes/jQuery/Light/). In this example, a row is disabled if its **approved** value is `false`. 
+This example demonstrates how to disable selection in certain rows in [multiple record selection mode](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/MultipleRecordSelectionModes/jQuery/Light/). In this example, a row is disabled if its **approved** value is `false`. 
 
 ![The first row is disabled](devextreme-datagrid-disable-selecting-certain-rows.png)
 
