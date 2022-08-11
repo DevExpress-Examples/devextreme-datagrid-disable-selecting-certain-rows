@@ -36,6 +36,8 @@ Note that you need to set the [remoteOperations](https://js.devexpress.com/Docum
 
 ## More Examples
 
-- [DataGrid for DevExtreme - How to implement a custom editing form using the Popup and Form components](https://github.com/DevExpress-Examples/devextreme-datagrid-custom-editing-form)
+- [DataGrid for DevExtreme - How to show/hide or enable/disable Edit Form items based on another item's value](https://github.com/DevExpress-Examples/DataGrid-How-to-hide-disable-Edit-Form-items-based-on-another-item-s-value)
 
-- [DataGrid for DevExtreme - How to implement a custom editing form in ASP.NET MVC](https://github.com/DevExpress-Examples/devextreme-asp-net-mvc-datagrid-custom-editing-form)
+- [DataGrid for DevExtreme - Multiple cell selection](https://github.com/DevExpress-Examples/DataGrid-Multiple-Cell-Selection)
+
+- [DataGrid for DevExtreme - Update multiple values in a row after selecting an item in a lookup column editor](https://github.com/DevExpress-Examples/DataGrid---Update-multiple-values-in-a-row-after-selecting-an-item-in-a-lookup-column-editor)
