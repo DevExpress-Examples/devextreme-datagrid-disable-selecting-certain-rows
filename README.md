@@ -7,6 +7,8 @@
 
 This example demonstrates how to disable selection in certain rows in the [multiple record selection mode](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/MultipleRecordSelectionModes/jQuery/Light/). In this example, a row is disabled if its **approved** value is `false`. 
 
+![The first row is disabled](devextreme-datagrid-disable-selecting-certain-rows.png)
+
 Specify the following properties to implement the technique:
 
 1. Implement the [onEditorPreparing](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/#onEditorPreparing) event handler to display disabled selection checkboxes.
