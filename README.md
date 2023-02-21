@@ -16,7 +16,7 @@ Specify the following properties to implement the technique:
 
 Note that you need to set the [remoteOperations](https://js.devexpress.com/Documentation/ApiReference/UI_Widgets/dxDataGrid/Configuration/remoteOperations/) to `false` for this example to work.
 
-## Files to Look At
+## Files to Review
 
 - **jQuery**
     - [index.html](jQuery/index.html)
