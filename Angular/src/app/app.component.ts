@@ -12,7 +12,7 @@ import {
 })
 
 export class AppComponent {
-  @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
+  @ViewChild(DxDataGridComponent, { static: false }) dataGrid!: DxDataGridComponent;
 
   dataSource: Employee[];
   selectAllCheckBox: any;
@@ -24,17 +24,18 @@ export class AppComponent {
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
   }
 
-  isSelectable(item) {
+  isSelectable(item: any) {
     return item.Approved;
 }
 
-isSelectAll(dataGrid) {
+isSelectAll(dataGrid: any) {
+     //@ts-ignore
     var items = [];
-
+   //@ts-ignore
     dataGrid.getDataSource().store().load().done(function (data) {
         items = data;
     });
-
+    //@ts-ignore
     var selectableItems = items.filter(this.isSelectable);
     var selectedRowKeys = dataGrid.option("selectedRowKeys");
 
@@ -43,7 +44,7 @@ isSelectAll(dataGrid) {
     }
     return selectedRowKeys.length >= selectableItems.length ? true : undefined;
 }
-
+ //@ts-ignore
 onEditorPreparing(e) {
     var dataGrid = e.component;
     if (e.command === "select") {
@@ -51,10 +52,12 @@ onEditorPreparing(e) {
             if (!this.isSelectable(e.row.data))
                 e.editorOptions.disabled = true;
         } else if (e.parentType === "headerRow") {
+           //@ts-ignore
             e.editorOptions.onInitialized = (e) => {
                 this.selectAllCheckBox = e.component;
             }
             e.editorOptions.value = this.isSelectAll(dataGrid);
+               //@ts-ignore
             e.editorOptions.onValueChanged = (e) => {
                 if (!e.event) {
                     if (e.previousValue && !this.checkBoxUpdating) {
@@ -73,14 +76,17 @@ onEditorPreparing(e) {
         }
     }
 }
-
+ //@ts-ignore
 onSelectionChanged(e) {
+     //@ts-ignore
     var deselectRowKeys = [];
+       //@ts-ignore
     e.selectedRowsData.forEach((item) => {
         if (!this.isSelectable(item))
             deselectRowKeys.push(e.component.keyOf(item));
     });
     if (deselectRowKeys.length) {
+         //@ts-ignore
         e.component.deselectRows(deselectRowKeys);
     }
     this.checkBoxUpdating = true;
