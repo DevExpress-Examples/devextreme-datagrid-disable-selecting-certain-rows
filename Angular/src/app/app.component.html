@@ -1,20 +1,15 @@
 <dx-data-grid id="gridContainer" [dataSource]="dataSource" [showBorders]="true"
-(onEditorPreparing)="onEditorPreparing($event)"
-(onSelectionChanged)="onSelectionChanged($event)"
->
+  (onEditorPreparing)="onEditorPreparing($event)" (onSelectionChanged)="onSelectionChanged($event)">
 
-    <dxo-selection
-    selectAllMode="allPages"
-    showCheckBoxesMode="onClick"
-    mode="multiple"
-></dxo-selection>
+  <dxo-selection selectAllMode="allPages" showCheckBoxesMode="onClick" mode="multiple"></dxo-selection>
 
-    <dxi-column dataField="Prefix" [width]="60" caption="Title"></dxi-column>
-    <dxi-column dataField="FirstName"></dxi-column>
-    <dxi-column dataField="LastName"></dxi-column>
-    <dxi-column dataField="City"></dxi-column>
-    <dxi-column dataField="State"></dxi-column>
-    <dxi-column dataField="Position" [width]="130"></dxi-column>
-    <dxi-column dataField="BirthDate" [width]="100" dataType="date"></dxi-column>
-    <dxi-column dataField="Approved" [visible]="false"></dxi-column>
+  <dxi-column dataField="Prefix" [width]="60" caption="Title"></dxi-column>
+  <dxi-column dataField="FirstName"></dxi-column>
+  <dxi-column dataField="LastName"></dxi-column>
+  <dxi-column dataField="City"></dxi-column>
+  <dxi-column dataField="State"></dxi-column>
+  <dxi-column dataField="Position" [width]="130"></dxi-column>
+  <dxi-column dataField="BirthDate" [width]="100" dataType="date"></dxi-column>
+  <dxi-column dataField="Approved" [visible]="false"></dxi-column>
+
 </dx-data-grid>

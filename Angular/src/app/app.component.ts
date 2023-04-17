@@ -1,21 +1,28 @@
 import { Component, ViewChild } from '@angular/core';
+import { DxDataGridComponent } from 'devextreme-angular';
+
 import { Employee, Service } from './app.service';
-import {
-  DxDataGridComponent
-} from "devextreme-angular";
+
+import dxDataGrid from 'devextreme/ui/data_grid';
+import dxCheckBox, {
+  InitializedEvent,
+  ValueChangedEvent,
+} from 'devextreme/ui/check_box';
+import { SelectionChangedEvent } from 'devextreme/ui/data_grid';
+import { EditorPreparingEventEx } from './app.types';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [Service]
+  providers: [Service],
 })
-
 export class AppComponent {
-  @ViewChild(DxDataGridComponent, { static: false }) dataGrid!: DxDataGridComponent;
+  @ViewChild(DxDataGridComponent, { static: false })
+  dataGrid!: DxDataGridComponent;
 
   dataSource: Employee[];
-  selectAllCheckBox: any;
+  selectAllCheckBox!: dxCheckBox;
   checkBoxUpdating = false;
 
   constructor(service: Service) {
@@ -24,73 +31,61 @@ export class AppComponent {
     this.onSelectionChanged = this.onSelectionChanged.bind(this);
   }
 
-  isSelectable(item: any) {
+  isSelectable(item: Employee) {
     return item.Approved;
-}
+  }
 
-isSelectAll(dataGrid: any) {
-     //@ts-ignore
-    var items = [];
-   //@ts-ignore
-    dataGrid.getDataSource().store().load().done(function (data) {
-        items = data;
-    });
-    //@ts-ignore
-    var selectableItems = items.filter(this.isSelectable);
-    var selectedRowKeys = dataGrid.option("selectedRowKeys");
+  isSelectAll = (dataGrid: dxDataGrid) => {
+    const selectableItems = this.dataSource.filter(this.isSelectable);
+    const selectedRowKeys = dataGrid.option('selectedRowKeys');
 
-    if (!selectedRowKeys.length) {
-        return false;
+    if (!selectedRowKeys?.length) {
+      return false;
     }
     return selectedRowKeys.length >= selectableItems.length ? true : undefined;
-}
- //@ts-ignore
-onEditorPreparing(e) {
-    var dataGrid = e.component;
-    if (e.command === "select") {
-        if (e.parentType === "dataRow" && e.row) {
-            if (!this.isSelectable(e.row.data))
-                e.editorOptions.disabled = true;
-        } else if (e.parentType === "headerRow") {
-           //@ts-ignore
-            e.editorOptions.onInitialized = (e) => {
-                this.selectAllCheckBox = e.component;
-            }
-            e.editorOptions.value = this.isSelectAll(dataGrid);
-               //@ts-ignore
-            e.editorOptions.onValueChanged = (e) => {
-                if (!e.event) {
-                    if (e.previousValue && !this.checkBoxUpdating) {
-                        e.component.option("value", e.previousValue);
-                    }
-                    return;
-                }
-                if(this.isSelectAll(dataGrid) === e.value) {
-                    return;
-                }
+  };
+  onEditorPreparing(e: EditorPreparingEventEx<Employee, number>) {
+    if (e.type !== 'selection') return;
 
-                e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
+    if (e.parentType === 'dataRow' && e.row && !this.isSelectable(e.row.data))
+      e.editorOptions.disabled = true;
+    if (e.parentType === 'headerRow') {
+      const dataGrid = e.component;
+      e.editorOptions.value = this.isSelectAll(dataGrid);
+      e.editorOptions.onInitialized = (e: InitializedEvent) => {
+        if (e.component) this.selectAllCheckBox = e.component;
+      };
+      e.editorOptions.onValueChanged = (e: ValueChangedEvent) => {
 
-                e.event.preventDefault();
-            }
+        if (!e.event) {
+          if (e.previousValue && !this.checkBoxUpdating) {
+            e.component.option('value', e.previousValue);
+          }
+          return;
         }
+
+        if (this.isSelectAll(dataGrid) === e.value) {
+          return;
+        }
+
+        e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
+        e.event.preventDefault();
+      };
     }
-}
- //@ts-ignore
-onSelectionChanged(e) {
-     //@ts-ignore
-    var deselectRowKeys = [];
-       //@ts-ignore
+  }
+
+  onSelectionChanged(e: SelectionChangedEvent<Employee, number>) {
+    const deselectRowKeys: number[] = [];
+    const dataGrid = e.component
     e.selectedRowsData.forEach((item) => {
-        if (!this.isSelectable(item))
-            deselectRowKeys.push(e.component.keyOf(item));
+      if (!this.isSelectable(item))
+        deselectRowKeys.push(dataGrid.keyOf(item));
     });
     if (deselectRowKeys.length) {
-         //@ts-ignore
-        e.component.deselectRows(deselectRowKeys);
+      dataGrid.deselectRows(deselectRowKeys);
     }
     this.checkBoxUpdating = true;
-    this.selectAllCheckBox.option("value", this.isSelectAll(e.component));
+    this.selectAllCheckBox.option('value', this.isSelectAll(dataGrid));
     this.checkBoxUpdating = false;
-}
+  }
 }
