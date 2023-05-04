@@ -1,32 +1,19 @@
-import { useCallback, useRef } from 'react';
-import './App.css';
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
+import './App.css';
+
+import { useCallback, useRef } from 'react';
+
 import DataGrid, {
   Column, Paging, Selection
 } from 'devextreme-react/data-grid';
 
-
-import { SalesItem, sales } from './data';
 import dxDataGrid, { SelectionChangedEvent } from 'devextreme/ui/data_grid';
 import { EditorPreparingEventEx } from './types';
 import dxCheckBox, { InitializedEvent, ValueChangedEvent } from 'devextreme/ui/check_box';
 
+import { SalesItem, sales } from './data';
 
-function isSelectable(item: SalesItem) {
-  return item.approved;
-}
-const isSelectAll = (dataGrid: dxDataGrid<SalesItem, number>) => {
-  let items: SalesItem[] = [];
-  dataGrid.getDataSource().store().load().then((data) => {
-    items = data as SalesItem[];
-  });
-  let selectableItems = items.filter(isSelectable);
-  let selectedRowKeys = dataGrid.option("selectedRowKeys");
-  if (!selectedRowKeys || !selectedRowKeys.length) {
-    return false;
-  }
-  return selectedRowKeys.length >= selectableItems.length ? true : undefined;
-}
+
 
 function App() {
 
@@ -106,6 +93,22 @@ function App() {
       <Column dataField="approved" visible={false} />
     </DataGrid>
   );
+}
+
+function isSelectable(item: SalesItem) {
+  return item.approved;
+}
+function isSelectAll(dataGrid: dxDataGrid<SalesItem, number>){
+  let items: SalesItem[] = [];
+  dataGrid.getDataSource().store().load().then((data) => {
+    items = data as SalesItem[];
+  });
+  let selectableItems = items.filter(isSelectable);
+  let selectedRowKeys = dataGrid.option("selectedRowKeys");
+  if (!selectedRowKeys || !selectedRowKeys.length) {
+    return false;
+  }
+  return selectedRowKeys.length >= selectableItems.length ? true : undefined;
 }
 
 export default App;
