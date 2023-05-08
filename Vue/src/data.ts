@@ -1,3 +1,13 @@
+export interface SalesItem {
+    orderId: number;
+    region: string;
+    country: string;
+    city: string;
+    amount: number;
+    date: string;
+    approved: boolean;
+}
+
 export const sales = [{
     'orderId': 10248,
     'region': 'North America',
