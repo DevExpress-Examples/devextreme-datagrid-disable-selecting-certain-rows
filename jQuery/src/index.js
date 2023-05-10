@@ -4,7 +4,6 @@ $(function () {
         keyExpr: "orderId",
         showBorders: true,
         remoteOperations: false,
-        columnWidth: 100,
         selection: {
             mode: "multiple",
             selectAllMode: "allPages",
@@ -18,13 +17,20 @@ $(function () {
             caption: "Order ID",
             width: 90
         },
-            "city", {
+        {
+            dataField: "city",
+            width: 100
+        }, {
             dataField: "country",
             width: 180
         },
-            "region", {
+        {
+            dataField: "region",
+            width: 100
+        }, {
             dataField: "date",
-            dataType: "date"
+            dataType: "date",
+            width: 100
         }, {
             dataField: "amount",
             format: "currency",
