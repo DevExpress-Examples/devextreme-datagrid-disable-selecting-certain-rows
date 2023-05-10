@@ -20,7 +20,7 @@ Note that you need to set the [remoteOperations](https://js.devexpress.com/Docum
 
 - **jQuery**
     - [index.html](jQuery/src/index.html)
-    - [index.js](jQuery/src/scripts.js)
+    - [index.js](jQuery/src/index.js)
 - **Angular**
     - [app.component.html](Angular/src/app/app.component.html)
     - [app.component.ts](Angular/src/app/app.component.ts)
