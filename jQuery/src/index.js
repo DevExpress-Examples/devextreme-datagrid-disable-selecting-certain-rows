@@ -1,5 +1,5 @@
 $(function () {
-    var dataGrid = $("#gridContainer").dxDataGrid({
+    $("#gridContainer").dxDataGrid({
         dataSource: sales,
         keyExpr: "orderId",
         showBorders: true,
@@ -17,13 +17,20 @@ $(function () {
             caption: "Order ID",
             width: 90
         },
-            "city", {
+        {
+            dataField: "city",
+            width: 100
+        }, {
             dataField: "country",
             width: 180
         },
-            "region", {
+        {
+            dataField: "region",
+            width: 100
+        }, {
             dataField: "date",
-            dataType: "date"
+            dataType: "date",
+            width: 100
         }, {
             dataField: "amount",
             format: "currency",
@@ -37,8 +44,8 @@ $(function () {
     }).dxDataGrid("instance");
 });
 
-var selectAllCheckBox;
-var checkBoxUpdating = false;
+let selectAllCheckBox;
+let checkBoxUpdating = false;
 
 function isSelectable(item) {
     return item.approved;
@@ -61,31 +68,26 @@ function isSelectAll(dataGrid) {
 }
 
 function onEditorPreparing(e) {
-    var dataGrid = e.component;
-    if (e.command === "select") {
-        if (e.parentType === "dataRow" && e.row) {
-            if (!isSelectable(e.row.data))
-                e.editorOptions.disabled = true;
-        } else if (e.parentType === "headerRow") {
-            e.editorOptions.onInitialized = function (e) {
+    let dataGrid = e.component;
+    if (e.type !== 'selection') return;
+    if (e.parentType === 'dataRow' && e.row && !isSelectable(e.row.data))
+        e.editorOptions.disabled = true;
+    if (e.parentType === "headerRow") {
+        e.editorOptions.onInitialized = (e) => {
+            if (e.component)
                 selectAllCheckBox = e.component;
+        };
+        e.editorOptions.value = isSelectAll(dataGrid);
+        e.editorOptions.onValueChanged = (e) => {
+            if (!e.event) {
+                if (e.previousValue && checkBoxUpdating)
+                    e.component.option("value", e.previousValue);
+                return;
             }
-            e.editorOptions.value = isSelectAll(dataGrid);
-            e.editorOptions.onValueChanged = function (e) {
-                if (!e.event) {
-                    if (e.previousValue && !checkBoxUpdating) {
-                        e.component.option("value", e.previousValue);
-                    }
-                    return;
-                }
-                if (isSelectAll(dataGrid) === e.value) {
-                    return;
-                }
-
-                e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
-
-                e.event.preventDefault();
-            }
+            if (isSelectAll(dataGrid) === e.value)
+                return;
+            e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
+            e.event.preventDefault();
         }
     }
 }
@@ -104,7 +106,7 @@ function onSelectionChanged(e) {
     checkBoxUpdating = false;
 }
 
-var sales = [{
+const sales = [{
     "orderId": 10248,
     "region": "North America",
     "country": "United States",
