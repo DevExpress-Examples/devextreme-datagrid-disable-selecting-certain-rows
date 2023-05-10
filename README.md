@@ -19,17 +19,17 @@ Note that you need to set the [remoteOperations](https://js.devexpress.com/Docum
 ## Files to Review
 
 - **jQuery**
-    - [index.html](jQuery/index.html)
-    - [scripts.js](jQuery/scripts.js)
+    - [index.html](jQuery/src/index.html)
+    - [index.js](jQuery/src/scripts.js)
 - **Angular**
     - [app.component.html](Angular/src/app/app.component.html)
     - [app.component.ts](Angular/src/app/app.component.ts)
 - **Vue**
-    - [App.vue](Vue/src/App.vue)
+    - [HomeContent.vue](Vue/src/components/HomeContent.vue)
 - **React**
-    - [App.js](React/src/App.js)
+    - [App.tsx](React/src/App.tsx)
 - **ASP.NET Core**    
-    - [Index.cshtml](ASPNETCore/ASPNETCore/Views/Home/Index.cshtml)
+    - [Index.cshtml](ASPNETCore/Views/Home/Index.cshtml)
 
 ## Documentation
 
