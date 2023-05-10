@@ -1,0 +1,83 @@
+@using ASP_NET_Core.Models
+
+<h2>Home</h2>
+
+@(Html.DevExtreme().DataGrid<Order>()
+    .ShowBorders(true)
+    .DataSource(d => d.Mvc().LoadMode(DataSourceLoadMode.Raw).Controller("Orders").LoadAction("Get").Key("OrderID"))
+    .Selection(s => s.Mode(SelectionMode.Multiple))
+    .Columns(columns => {
+        columns.AddFor(m => m.OrderID);
+        columns.AddFor(m => m.OrderDate);
+        columns.AddFor(m => m.CustomerName);
+        columns.AddFor(m => m.ShipCountry);
+        columns.AddFor(m => m.ShipCity);
+        columns.AddFor(m => m.Approved).Visible(false);
+    })
+    .OnEditorPreparing("onEditorPreparing")
+    .OnSelectionChanged("onSelectionChanged")
+)
+
+<script>
+    let selectAllCheckBox;
+    let checkBoxUpdating = false;
+
+    function isSelectable(item) {
+        return item.approved;
+    }
+
+    function isSelectAll(dataGrid) {
+        var items = [];
+
+        dataGrid.getDataSource().store().load().done(function (data) {
+            items = data;
+        });
+
+        var selectableItems = items.filter(isSelectable);
+        var selectedRowKeys = dataGrid.option("selectedRowKeys");
+
+        if (!selectedRowKeys.length) {
+            return false;
+        }
+        return selectedRowKeys.length >= selectableItems.length ? true : undefined;
+    }
+
+    function onEditorPreparing(e) {
+        let dataGrid = e.component;
+        if (e.type !== 'selection') return;
+        if (e.parentType === 'dataRow' && e.row && !isSelectable(e.row.data))
+            e.editorOptions.disabled = true;
+        if (e.parentType === "headerRow") {
+            e.editorOptions.onInitialized = (e) => {
+                if (e.component)
+                    selectAllCheckBox = e.component;
+            };
+            e.editorOptions.value = isSelectAll(dataGrid);
+            e.editorOptions.onValueChanged = (e) => {
+                if (!e.event) {
+                    if (e.previousValue && checkBoxUpdating)
+                        e.component.option("value", e.previousValue);
+                    return;
+                }
+                if (isSelectAll(dataGrid) === e.value)
+                    return;
+                e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
+                e.event.preventDefault();
+            }
+        }
+    }
+
+    function onSelectionChanged(e) {
+        var deselectRowKeys = [];
+        e.selectedRowsData.forEach((item) => {
+            if (!isSelectable(item))
+                deselectRowKeys.push(e.component.keyOf(item));
+        });
+        if (deselectRowKeys.length) {
+            e.component.deselectRows(deselectRowKeys);
+        }
+        checkBoxUpdating = true;
+        selectAllCheckBox.option("value", isSelectAll(e.component));
+        checkBoxUpdating = false;
+    }
+</script>
