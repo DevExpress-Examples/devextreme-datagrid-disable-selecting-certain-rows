@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T869704)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# DataGrid for DevExtreme - How to disable selecting certain rows
+# DataGrid for DevExtreme - How to prevent/disable selection of specific rows
 
 This example demonstrates how to disable selection in certain rows in [multiple record selection mode](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/MultipleRecordSelectionModes/jQuery/Light/). In this example, a row is disabled if its **approved** value is `false`. 
 
