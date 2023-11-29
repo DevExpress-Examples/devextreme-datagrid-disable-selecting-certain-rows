@@ -4,7 +4,7 @@
 
 @(Html.DevExtreme().DataGrid<Order>()
     .ShowBorders(true)
-    .DataSource(d => d.Mvc().LoadMode(DataSourceLoadMode.Raw).Controller("Orders").LoadAction("Get").Key("OrderID"))
+    .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
     .Selection(s => s.Mode(SelectionMode.Multiple))
     .Columns(columns => {
         columns.AddFor(m => m.OrderID);
@@ -23,7 +23,7 @@
     let checkBoxUpdating = false;
 
     function isSelectable(item) {
-        return item.approved;
+        return item.Approved;
     }
 
     function isSelectAll(dataGrid) {
