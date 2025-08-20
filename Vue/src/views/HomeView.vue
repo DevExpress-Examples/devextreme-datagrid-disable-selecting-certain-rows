@@ -5,4 +5,3 @@ import HomeContent from '../components/HomeContent.vue';
 <template>
   <HomeContent text="Count"/>
 </template>
-
