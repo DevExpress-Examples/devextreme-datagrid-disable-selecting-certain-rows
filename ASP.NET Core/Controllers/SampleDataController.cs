@@ -15,7 +15,7 @@ namespace ASP_NET_Core.Controllers {
 
         [HttpGet]
         public object Get(DataSourceLoadOptions loadOptions) {
-            return DataSourceLoader.Load(SampleData.Orders, loadOptions);
+            return DataSourceLoader.Load(SampleData.SalesItems, loadOptions);
         }
 
     }
