@@ -1,3 +1,24 @@
-<div class="default-style">
-  <dx-button [text]="buttonText" (onClick)="onClick($event)"></dx-button>
-</div>
+<dx-data-grid
+  id="grid-container"
+  [dataSource]="dataSource"
+  [showBorders]="true"
+  keyExpr="orderId"
+  (onEditorPreparing)="onEditorPreparing($event)"
+  (onSelectionChanged)="onSelectionChanged($event)"
+  (onContentReady)="onContentReady($event)"
+  [remoteOperations]="false"
+>
+  <dxo-selection
+    selectAllMode="allPages"
+    showCheckBoxesMode="onClick"
+    mode="multiple"
+  ></dxo-selection>
+
+  <dxi-column dataField="orderId" caption="Order ID" [width]="90"></dxi-column>
+  <dxi-column dataField="city"></dxi-column>
+  <dxi-column dataField="country" [width]="180"></dxi-column>
+  <dxi-column dataField="region"></dxi-column>
+  <dxi-column dataField="date" dataType="date"></dxi-column>
+  <dxi-column dataField="amount" format="currency" [width]="90"></dxi-column>
+  <dxi-column dataField="approved" [visible]="false"></dxi-column>
+</dx-data-grid>
