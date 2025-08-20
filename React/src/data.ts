@@ -89,4 +89,13 @@ export const sales = [
     date: '2013/01/24',
     approved: true,
   },
+  {
+    orderId: 10257,
+    region: 'Europe',
+    country: 'Germany',
+    city: 'Berlin',
+    amount: 4575,
+    date: '2013/01/11',
+    approved: true,
+  },
 ];
