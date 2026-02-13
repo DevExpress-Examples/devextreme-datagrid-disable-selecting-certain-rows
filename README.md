@@ -46,7 +46,7 @@ Note that you need to set the [remoteOperations](https://js.devexpress.com/Docum
 
 - [DataGrid for DevExtreme - Update multiple values in a row after selecting an item in a lookup column editor](https://github.com/DevExpress-Examples/devextreme-datagrid-update-multiple-cells)
 <!-- feedback -->
-## Does this example address your development requirements/objectives?
+## Does This Example Address Your Development Requirements/Objectives?
 
 [<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=devextreme-datagrid-disable-selecting-certain-rows&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=devextreme-datagrid-disable-selecting-certain-rows&~~~was_helpful=no)
 
