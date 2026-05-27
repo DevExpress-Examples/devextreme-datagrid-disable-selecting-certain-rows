@@ -8,9 +8,12 @@ import dxCheckBox, {
 } from 'devextreme/ui/check_box';
 import { SalesItem, Service } from './app.service';
 import { EditorPreparingEventEx } from './app.types';
+import { DxButtonModule } from 'devextreme-angular/ui/button';
+import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
 
 @Component({
   selector: 'app-root',
+  imports: [DxButtonModule, DxDataGridModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: [Service],

@@ -8,17 +8,17 @@
   (onContentReady)="onContentReady($event)"
   [remoteOperations]="false"
 >
-  <dxo-selection
+  <dxo-data-grid-selection
     selectAllMode="allPages"
     showCheckBoxesMode="onClick"
     mode="multiple"
-  ></dxo-selection>
+  ></dxo-data-grid-selection>
 
-  <dxi-column dataField="orderId" caption="Order ID" [width]="90"></dxi-column>
-  <dxi-column dataField="city"></dxi-column>
-  <dxi-column dataField="country" [width]="180"></dxi-column>
-  <dxi-column dataField="region"></dxi-column>
-  <dxi-column dataField="date" dataType="date"></dxi-column>
-  <dxi-column dataField="amount" format="currency" [width]="90"></dxi-column>
-  <dxi-column dataField="approved" [visible]="false"></dxi-column>
+  <dxi-data-grid-column dataField="orderId" caption="Order ID" [width]="90"></dxi-data-grid-column>
+  <dxi-data-grid-column dataField="city"></dxi-data-grid-column>
+  <dxi-data-grid-column dataField="country" [width]="180"></dxi-data-grid-column>
+  <dxi-data-grid-column dataField="region"></dxi-data-grid-column>
+  <dxi-data-grid-column dataField="date" dataType="date"></dxi-data-grid-column>
+  <dxi-data-grid-column dataField="amount" format="currency" [width]="90"></dxi-data-grid-column>
+  <dxi-data-grid-column dataField="approved" [visible]="false"></dxi-data-grid-column>
 </dx-data-grid>
