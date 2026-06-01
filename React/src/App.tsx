@@ -11,6 +11,27 @@ import dxDataGrid, { type SelectionChangedEvent, type ContentReadyEvent } from '
 import { type EditorPreparingEventEx } from './types';
 import { type SalesItem, sales } from './data';
 
+function isSelectable(item: SalesItem): boolean {
+  return item.approved;
+}
+
+function isSelectAll(dataGrid: dxDataGrid<SalesItem, number>): boolean | undefined {
+  let items: SalesItem[] = [];
+  dataGrid.getDataSource().store().load().then((data) => {
+    items = data as SalesItem[];
+  })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
+  let selectableItems = items.filter(isSelectable);
+  let selectedRowKeys = dataGrid.option('selectedRowKeys');
+  if (!selectedRowKeys?.length) {
+    return false;
+  }
+  return selectedRowKeys.length >= selectableItems.length ? true : undefined;
+}
+
 function App(): JSX.Element {
   const selectionRef = useRef<{ checkBoxUpdating: boolean; selectAllCheckBox: dxCheckBox | null }>({ checkBoxUpdating: false, selectAllCheckBox: null });
 
@@ -21,26 +42,26 @@ function App(): JSX.Element {
       e.editorOptions.disabled = true;
     }
     if (e.parentType === 'headerRow') {
-      e.editorOptions.onInitialized = (e: InitializedEvent): void => {
-        if (e.component) {
-          selectionRef.current.selectAllCheckBox = e.component;
+      e.editorOptions.onInitialized = (evt: InitializedEvent): void => {
+        if (evt.component) {
+          selectionRef.current.selectAllCheckBox = evt.component;
         }
       };
       e.editorOptions.value = isSelectAll(dataGrid);
-      e.editorOptions.onValueChanged = (e: ValueChangedEvent): void => {
-        if (!e.event) {
-          if (e.previousValue && selectionRef.current.checkBoxUpdating) {
-            e.component.option('value', e.previousValue);
+      e.editorOptions.onValueChanged = (evt: ValueChangedEvent): void => {
+        if (!evt.event) {
+          if (evt.previousValue && selectionRef.current.checkBoxUpdating) {
+            evt.component.option('value', evt.previousValue);
           }
           return;
         }
-        if (isSelectAll(dataGrid) === e.value) {
+        if (isSelectAll(dataGrid) === evt.value) {
           return;
         }
-        const result = e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
+        const result = evt.value ? dataGrid.selectAll() : dataGrid.deselectAll();
         // eslint-disable-next-line no-console
         result.catch((error) => { console.error(error); });
-        e.event.preventDefault();
+        evt.event.preventDefault();
       };
     }
   }, []);
@@ -96,26 +117,6 @@ function App(): JSX.Element {
       <Column dataField='approved' visible={false} />
     </DataGrid>
   );
-}
-
-function isSelectable(item: SalesItem): boolean {
-  return item.approved;
-}
-function isSelectAll(dataGrid: dxDataGrid<SalesItem, number>): boolean | undefined {
-  let items: SalesItem[] = [];
-  dataGrid.getDataSource().store().load().then((data) => {
-    items = data as SalesItem[];
-  })
-    .catch((error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    });
-  let selectableItems = items.filter(isSelectable);
-  let selectedRowKeys = dataGrid.option('selectedRowKeys');
-  if (!selectedRowKeys?.length) {
-    return false;
-  }
-  return selectedRowKeys.length >= selectableItems.length ? true : undefined;
 }
 
 export default App;
