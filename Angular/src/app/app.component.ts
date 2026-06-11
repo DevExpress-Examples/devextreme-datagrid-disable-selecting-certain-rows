@@ -70,7 +70,6 @@ export class AppComponent {
           return;
         }
         const result = e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
-        // eslint-disable-next-line no-console
         result.catch((error) => { console.error(error); });
         e.event.preventDefault();
       };
