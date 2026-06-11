@@ -38,7 +38,6 @@ function App(): JSX.Element {
           return;
         }
         const result = e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
-        // eslint-disable-next-line no-console
         result.catch((error) => { console.error(error); });
         e.event.preventDefault();
       };
@@ -54,7 +53,6 @@ function App(): JSX.Element {
     });
     if (deselectRowKeys.length) {
       e.component.deselectRows(deselectRowKeys).catch((error) => {
-        // eslint-disable-next-line no-console
         console.error(error);
       });
     }
@@ -107,7 +105,6 @@ function isSelectAll(dataGrid: dxDataGrid<SalesItem, number>): boolean | undefin
     items = data as SalesItem[];
   })
     .catch((error) => {
-      // eslint-disable-next-line no-console
       console.error(error);
     });
   let selectableItems = items.filter(isSelectable);

@@ -68,12 +68,10 @@ function onEditorPreparing(e) {
   if (e.type !== 'selection') return;
   if (e.parentType === 'dataRow' && e.row && !isSelectable(e.row.data)) e.editorOptions.disabled = true;
   if (e.parentType === 'headerRow') {
-    // eslint-disable-next-line no-shadow
     e.editorOptions.onInitialized = (e) => {
       if (e.component) selectAllCheckBox = e.component;
     };
     e.editorOptions.value = isSelectAll(dataGrid);
-    // eslint-disable-next-line no-shadow
     e.editorOptions.onValueChanged = (e) => {
       if (!e.event) {
         if (e.previousValue && checkBoxUpdating) e.component.option('value', e.previousValue);
@@ -81,7 +79,6 @@ function onEditorPreparing(e) {
       }
       if (isSelectAll(dataGrid) === e.value) return;
       const result = e.value ? dataGrid.selectAll() : dataGrid.deselectAll();
-      // eslint-disable-next-line no-console
       result.catch((error) => { console.error(error); });
       e.event.preventDefault();
     };
