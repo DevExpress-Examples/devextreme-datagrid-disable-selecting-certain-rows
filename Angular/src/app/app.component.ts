@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 
 import dxDataGrid, { SelectionChangedEvent, ContentReadyEvent } from 'devextreme/ui/data_grid';
@@ -16,6 +16,7 @@ import { DxDataGridModule } from 'devextreme-angular/ui/data-grid';
   imports: [DxButtonModule, DxDataGridModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [Service],
 })
 export class AppComponent {
